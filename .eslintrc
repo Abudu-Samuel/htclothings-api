@@ -1,0 +1,80 @@
+{
+  "extends": [
+    "airbnb",
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "plugins": [
+    "prettier",
+    "import"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true,
+    "jest": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "comma-dangle": [
+      "error",
+      {
+        "functions": "ignore"
+      }
+    ],
+    "no-param-reassign": "off",
+    "import/no-named-as-default": "off",
+    "no-console": 1,
+    "no-debugger": 1,
+    "no-var": 1,
+    "semi": [
+      1,
+      "always"
+    ],
+    "no-trailing-spaces": 1,
+    "eol-last": 0,
+    "no-unused-vars": 1,
+    "no-underscore-dangle": 0,
+    "no-alert": 0,
+    "no-lone-blocks": 1,
+    "import/no-unresolved": 0,
+    "no-shadow": [
+      2,
+      {
+        "hoist": "all",
+        "allow": [
+          "resolve",
+          "reject",
+          "done",
+          "next",
+          "err",
+          "error"
+        ]
+      }
+    ],
+    "quotes": [
+      2,
+      "single"
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "printWidth": 120
+      }
+    ]
+  }
+}
