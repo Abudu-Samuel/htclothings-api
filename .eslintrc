@@ -69,11 +69,30 @@
       2,
       "single"
     ],
+    "valid-jsdoc": [
+      2,
+      {
+        "prefer": {
+          "return": "returns"
+        }
+      }
+    ],
+    "require-jsdoc": [
+      "error",
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true,
+          "ArrowFunctionExpression": true
+        }
+      }
+    ],
     "prettier/prettier": [
       "error",
       {
         "singleQuote": true,
-        "printWidth": 120
+        "printWidth": 100
       }
     ]
   }

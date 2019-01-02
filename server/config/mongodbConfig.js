@@ -5,20 +5,31 @@ import logger from '../helpers/logger';
 export default env => {
   mongoose.Promise = global.Promise;
   const config = dbConfig[env];
-  const urlParser = { useNewUrlParser: true };
+  const dbOptions = { useNewUrlParser: true, useCreateIndex: true };
+
+  /**
+   * @description - provides connection for mongo database
+   * @function
+   *
+   * @param {String} url - mongo database url
+   * @param {Object} options - extra parameter for mongodb setup
+   *
+   * @returns {*} - null
+   */
+  const connectMongodb = (url, options) => {
+    mongoose.connect(
+      url,
+      options
+    );
+  };
 
   if (config.use_prod_env) {
-    mongoose.connect(
-      process.env[config.use_prod_env],
-      urlParser
-    );
+    connectMongodb(process.env[config.use_prod_env], dbOptions);
   } else {
     const { prefix, host, database, username, password } = config;
     const url = `${prefix}://${username}:${password}@${host}:${config.port}/${database}`;
-    mongoose.connect(
-      url,
-      urlParser
-    );
+
+    connectMongodb(url, dbOptions);
   }
 
   const db = mongoose.connection;
