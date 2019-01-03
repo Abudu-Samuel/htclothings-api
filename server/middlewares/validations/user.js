@@ -111,7 +111,7 @@ const validatePassword = (password, processId) => {
 };
 
 /**
- * @description - acts as a middleware validatio for user's form inputs
+ * @description - acts as a middleware validation for user's form inputs
  *
  * @param {Object} request - nodejs http request object
  * @param {Object} response - nodejs http response object
@@ -143,6 +143,40 @@ export const signUpValidations = (request, response, next) => {
   const passwordError = validatePassword(trimmedPassword, 'signup');
 
   if (usernameError) errors.username = usernameError;
+  if (emailError) errors.email = emailError;
+  if (passwordError) errors.password = passwordError;
+
+  if (!isEmpty(errors)) {
+    return dataResponse.error(response, 400, errors);
+  }
+  return next();
+};
+
+/**
+ * @description - acts as a middleware validation for user's form inputs
+ *
+ * @param {Object} request - nodejs http request object
+ * @param {Object} response - nodejs http response object
+ * @param {*} next - nodejs middleware next function
+ * @returns {*} - validation error object or nodejs next function
+ */
+export const signInValidations = (request, response, next) => {
+  const { email, password } = request.body;
+  const errors = {};
+
+  const isEmailUndefined = typeof email === 'undefined';
+  const isPasswordUndefined = typeof password === 'undefined';
+
+  const message = checkForUndefinedData({ isEmailUndefined, isPasswordUndefined });
+
+  if (message) return dataResponse.error(response, 422, message);
+
+  const trimmedEmail = email.trim();
+  const trimmedPassword = password.trim();
+
+  const emailError = validateEmail(trimmedEmail, 'signin');
+  const passwordError = validatePassword(trimmedPassword, 'signin');
+
   if (emailError) errors.email = emailError;
   if (passwordError) errors.password = passwordError;
 
