@@ -39,6 +39,6 @@ const UserSchema = new Schema({
 
 UserSchema.methods.generateHash = password => hashSync(password, genSaltSync(8));
 
-UserSchema.methods.validatePassword = password => compareSync(password, this.password);
+UserSchema.methods.validatePassword = (password, dbPassword) => compareSync(password, dbPassword);
 
 export default model('user', UserSchema);
