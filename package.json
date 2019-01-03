@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "app.js",
   "repository": "https://github.com/Abudu-Samuel/htclothings-api.git",
+  "contributors": [
+    "Chinwoke Hyginus",
+    "Samuel Abudu"
+  ],
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -13,10 +17,14 @@
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.0",
-    "pm2": "^3.2.4"
+    "pm2": "^3.2.4",
+    "validator": "^10.9.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",

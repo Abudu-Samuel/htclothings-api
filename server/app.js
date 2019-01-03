@@ -3,8 +3,11 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import compression from 'compression';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import logger from './helpers/logger';
 import mongodbConfig from './config/mongodbConfig';
+import userRoutes from './routes/userRoutes';
+import dataResponse from './helpers/dataResponse';
 
 dotenv.config();
 
@@ -16,24 +19,19 @@ app.use(compression());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 mongodbConfig(env);
 
-app.get('/api/v1', (request, response) => {
-  response.json({
-    status: 'Success',
-    message: 'Welcome to HTClothings API'
-  });
-});
+app.get('/api/v1', (request, response) =>
+  dataResponse.success(response, 200, 'Welcome to HT-Clothings API')
+);
 
-/** Add API routes function here */
+app.use('/api/v1', userRoutes);
 
-app.all('*', (request, response) => {
-  response.status(404).json({
-    status: 'Failed',
-    message: 'API route does not exist. Redirect to /api/v1'
-  });
-});
+app.all('*', (request, response) =>
+  dataResponse.error(response, 404, 'API route does not exist. Redirect to /api/v1')
+);
 
 app.listen(port, () =>
   logger.info({

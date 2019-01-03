@@ -24,6 +24,10 @@ const UserSchema = new Schema({
     required: [true, 'Password is required'],
     minlength: [6, 'Password strength is not strong']
   },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -33,8 +37,8 @@ const UserSchema = new Schema({
   }
 });
 
-UserSchema.methods.generateHash = password => hashSync(password, genSaltSync(8), null);
+UserSchema.methods.generateHash = password => hashSync(password, genSaltSync(8));
 
-UserSchema.methods.isValidPassword = password => compareSync(password, this.password);
+UserSchema.methods.validatePassword = password => compareSync(password, this.password);
 
 export default model('user', UserSchema);
